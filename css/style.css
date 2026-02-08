@@ -83,3 +83,31 @@ body {
   border: 2px solid #d6336c;
 }
 
+.gift-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff0f3, #ffe6ea);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+#passwordScreen, #giftContent {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+#errorMsg {
+  color: red;
+  margin-top: 10px;
+}
+
+#title {
+  color: #d6336c;
+  margin-bottom: 15px;
+}
+

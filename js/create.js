@@ -1,57 +1,31 @@
+import { db } from "./firebase.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+console.log("create.js loaded ✅");
+
 const form = document.getElementById("giftForm");
-const imagesInput = document.getElementById("images");
-const preview = document.getElementById("preview");
+console.log("Form element:", form);
 
-let selectedImages = [];
-let selectedMusic = null;
-
-// IMAGE PREVIEW
-imagesInput.addEventListener("change", () => {
-  preview.innerHTML = "";
-  selectedImages = Array.from(imagesInput.files);
-
-  if (selectedImages.length > 6) {
-    alert("You can upload maximum 6 images.");
-    imagesInput.value = "";
-    return;
-  }
-
-  selectedImages.forEach((file) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const img = document.createElement("img");
-      img.src = reader.result;
-      preview.appendChild(img);
-    };
-    reader.readAsDataURL(file);
-  });
-});
-
-// MUSIC SELECT
-document.getElementById("music").addEventListener("change", (e) => {
-  selectedMusic = e.target.files[0];
-  alert("Music selected 🎶");
-});
-
-// FORM SUBMIT
-form.addEventListener("submit", function (e) {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  if (selectedImages.length === 0) {
-    alert("Please upload at least one image.");
-    return;
-  }
-
-  const giftData = {
+  const gift = {
     yourName: document.getElementById("yourName").value,
     partnerName: document.getElementById("partnerName").value,
     message: document.getElementById("message").value,
     password: document.getElementById("password").value,
+    createdAt: Date.now()
   };
 
-  console.log("Gift Data:", giftData);
-  console.log("Images:", selectedImages);
-  console.log("Music:", selectedMusic);
+  try {
+    const docRef = await addDoc(collection(db, "gifts"), gift);
 
-  alert("Phase 3 complete! Next: Firebase integration 🚀");
+    const link = `${window.location.origin}/gift.html?id=${docRef.id}`;
+
+    alert("Gift link generated 💖\n\n" + link);
+  } catch (error) {
+    console.error("Firestore error:", error);
+    alert("Error saving gift. Check console.");
+  }
 });
+

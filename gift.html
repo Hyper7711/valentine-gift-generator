@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Valentine Gift 💖</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="gift-container">
+  <div id="passwordScreen">
+    <h2>Enter Secret Password 💌</h2>
+    <input type="password" id="giftPassword" placeholder="Enter password" />
+    <button id="unlockBtn" class="btn">Unlock Gift</button>
+    <p id="errorMsg"></p>
+  </div>
+
+  <div id="giftContent" style="display:none;">
+    <h1 id="title"></h1>
+    <p id="animatedText"></p>
+  </div>
+</div>
+
+<script type="module" src="js/firebase.js"></script>
+<script type="module" src="js/gift.js"></script>
+
+</body>
+</html>

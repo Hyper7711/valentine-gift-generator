@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Valentine Gift 💖</title>
+  <title>Create Valentine Gift</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -17,20 +17,15 @@
 
     <textarea id="message" placeholder="Write your love message..." required></textarea>
 
-    <label>Upload Photos</label>
-    <input type="file" id="images" accept="image/*" multiple />
+    <input type="password" id="password" placeholder="Set a secret password" required />
 
-    <label>Choose Background Music</label>
-    <input type="file" id="music" accept="audio/*" />
-
-    <input type="password" id="password" placeholder="Set a password" required />
-
-    <button type="submit" class="btn">Generate Gift</button>
+    <button type="submit" class="btn">Generate Gift Link</button>
   </form>
-
-  <div id="preview" class="preview"></div>
 </section>
 
-  <script src="js/create.js"></script>
+<!-- IMPORTANT: Firebase first, then create.js -->
+<script type="module" src="js/firebase.js"></script>
+<script type="module" src="js/create.js"></script>
+
 </body>
 </html>
