@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentine Gift 💖</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<section class="form-container">
+  <h2>Create Your Valentine Gift 💖</h2>
+
+  <form id="giftForm">
+    <input type="text" id="yourName" placeholder="Your Name" required />
+    <input type="text" id="partnerName" placeholder="Valentine's Name" required />
+
+    <textarea id="message" placeholder="Write your love message..." required></textarea>
+
+    <label>Upload Photos</label>
+    <input type="file" id="images" accept="image/*" multiple />
+
+    <label>Choose Background Music</label>
+    <input type="file" id="music" accept="audio/*" />
+
+    <input type="password" id="password" placeholder="Set a password" required />
+
+    <button type="submit" class="btn">Generate Gift</button>
+  </form>
+
+  <div id="preview"></div>
+</section>
+
+  <script src="js/create.js"></script>
+</body>
+</html>
