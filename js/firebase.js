@@ -3,6 +3,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyD....",
@@ -13,8 +14,10 @@ const firebaseConfig = {
   appId: "1:123456789:web:abcdef"
 };
 
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
 
 // Initialize Firestore
 export const db = getFirestore(app);

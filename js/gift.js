@@ -15,6 +15,7 @@ const animatedText = document.getElementById("animatedText");
 let giftData = null;
 
 // Disable button until data loads
+
 unlockBtn.disabled = true;
 unlockBtn.innerText = "Loading...";
 
