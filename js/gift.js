@@ -75,4 +75,3 @@ function animateText(text) {
     if (i >= text.length) clearInterval(interval);
   }, 50);
 }
-
