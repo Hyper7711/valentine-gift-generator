@@ -110,3 +110,27 @@ body {
   color: #d6336c;
   margin-bottom: 15px;
 }
+
+/* Slideshow Styles */
+.slideshow {
+  width: 100%;
+  max-width: 400px;
+  margin: 15px auto;
+  position: relative;
+}
+
+.slideshow img {
+  width: 100%;
+  border-radius: 12px;
+  display: none;
+}
+
+.slideshow img.active {
+  display: block;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
