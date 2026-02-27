@@ -17,6 +17,12 @@
 
     <textarea id="message" placeholder="Write your love message..." required></textarea>
 
+    <!-- ✅ NEW: Photo URLs Field -->
+    <textarea 
+      id="photoUrls" 
+      placeholder="Paste image URLs (one per line, max 6)">
+    </textarea>
+
     <input type="password" id="password" placeholder="Set a secret password" required />
 
     <button type="submit" class="btn">Generate Gift Link</button>
@@ -26,7 +32,6 @@
 <!-- IMPORTANT: Firebase first, then create.js -->
 <script type="module" src="js/firebase.js"></script>
 <script type="module" src="js/create.js"></script>
-
 
 </body>
 </html>
