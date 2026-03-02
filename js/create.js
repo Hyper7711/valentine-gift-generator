@@ -38,4 +38,3 @@ form.addEventListener("submit", async (e) => {
     alert("Error saving gift. Check console.");
   }
 });
-
