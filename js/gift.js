@@ -65,7 +65,7 @@ unlockBtn.addEventListener("click", () => {
       displaySlideshow(giftData.photoUrls);
     }
 
-    // Start multi-step message flow
+    // Start message flow
     showNextMessage();
   } else {
     errorMsg.innerText = "Wrong password 😢";
@@ -99,7 +99,7 @@ function displaySlideshow(photoUrls) {
   }, 2500);
 }
 
-// ✨ Multi-step Love Letter Engine
+// ✨ Multi-step Love Letters
 function showNextMessage() {
   if (!giftData.messages || giftData.messages.length === 0) return;
 
@@ -157,14 +157,38 @@ function showProposalScreen() {
   const yesBtn = document.getElementById("yesBtn");
   const noBtn = document.getElementById("noBtn");
 
+  // 💖 YES button
   yesBtn.onclick = () => {
     proposal.innerHTML = `
       <h2>YAYYY!!! 💖🎉</h2>
       <p>You made my heart the happiest!</p>
+      <p style="margin-top:10px;">Best day ever 🥰</p>
     `;
+
+    document.body.style.background = "#ffe6ea";
   };
 
-  noBtn.onclick = () => {
-    alert("Are you sure? 🥺 Try clicking YES 😌");
-  };
+  // 😈 NO button (runs away)
+  let moveCount = 0;
+
+  noBtn.addEventListener("mouseover", () => {
+
+    moveCount++;
+
+    const x = Math.random() * 300 - 150;
+    const y = Math.random() * 200 - 100;
+
+    noBtn.style.position = "relative";
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+    if (moveCount === 3) {
+      alert("Hey! Don't break my heart 🥺");
+    }
+
+    if (moveCount === 6) {
+      alert("Come on... click YES 💖");
+    }
+
+  });
+
 }
