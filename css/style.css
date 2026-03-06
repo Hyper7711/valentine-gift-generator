@@ -2,188 +2,155 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
+  font-family: "Poppins", sans-serif;
+  }
 
 body {
-  background: #fff0f3;
-  color: #333;
-  min-height: 100vh;
+min-height: 100vh;
+background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+display: flex;
+justify-content: center;
+align-items: center;
+overflow-x: hidden;
 }
 
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
+/* Floating hearts background */
+
+#hearts {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+pointer-events: none;
+z-index: 0;
 }
 
-.hero h1 {
-  font-size: 2.5rem;
-  color: #d6336c;
+.heart {
+position: absolute;
+bottom: -50px;
+font-size: 22px;
+animation: floatUp linear forwards;
+opacity: 0.8;
 }
 
-.hero p {
-  margin: 15px 0;
-  font-size: 1.1rem;
+@keyframes floatUp {
+from {
+transform: translateY(0);
+opacity: 0.9;
+}
+to {
+transform: translateY(-120vh);
+opacity: 0;
+}
 }
 
-.btn {
-  padding: 12px 24px;
-  background: #d6336c;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 25px;
-  font-size: 1rem;
-}
-
-.form-container {
-  max-width: 500px;
-  margin: 50px auto;
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-}
-
-.form-container h2 {
-  text-align: center;
-  color: #d6336c;
-  margin-bottom: 20px;
-}
-
-.form-container input,
-.form-container textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-.form-container textarea {
-  resize: none;
-  height: 100px;
-}
-
-.preview {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-
-.preview img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 2px solid #d6336c;
-}
+/* Main container */
 
 .gift-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #fff0f3, #ffe6ea);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+position: relative;
+z-index: 2;
+width: 90%;
+max-width: 520px;
 }
 
-#passwordScreen, #giftContent {
-  background: #fff;
-  padding: 25px;
-  border-radius: 12px;
-  text-align: center;
-  max-width: 500px;
-  width: 100%;
+/* Romantic glass card */
+
+#passwordScreen,
+#giftContent {
+background: rgba(255,255,255,0.85);
+backdrop-filter: blur(12px);
+border-radius: 18px;
+padding: 35px;
+text-align: center;
+box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+animation: fadeIn 0.8s ease;
 }
 
-#errorMsg {
-  color: red;
-  margin-top: 10px;
-}
+/* Title */
 
 #title {
-  color: #d6336c;
-  margin-bottom: 15px;
+font-size: 32px;
+color: #e63946;
+margin-bottom: 20px;
 }
 
-/* Slideshow Styles */ 
+/* Message */
+
+#animatedText {
+font-size: 18px;
+line-height: 1.6;
+margin-top: 15px;
+}
+
+/* Slideshow */
+
 .slideshow {
-  width: 100%;
-  max-width: 400px;
-  margin: 15px auto;
-  position: relative;
+width: 100%;
+height: 260px;
+overflow: hidden;
+border-radius: 12px;
+margin-bottom: 15px;
 }
 
 .slideshow img {
-  width: 100%;
-  border-radius: 12px;
-  display: none;
+width: 100%;
+height: 100%;
+object-fit: cover;
 }
 
-.slideshow img.active {
-  display: block;
-  animation: fadeIn 0.8s ease-in-out;
+/* Inputs */
+
+input {
+width: 100%;
+padding: 12px;
+margin-top: 10px;
+border-radius: 8px;
+border: 1px solid #ccc;
 }
+
+/* Buttons */
+
+.btn {
+background: linear-gradient(45deg,#ff4b6e,#ff758c);
+color: white;
+border: none;
+padding: 12px 24px;
+margin-top: 15px;
+border-radius: 25px;
+cursor: pointer;
+font-size: 15px;
+transition: 0.25s;
+}
+
+.btn:hover {
+transform: scale(1.05);
+box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+/* Error message */
+
+#errorMsg {
+color: #e63946;
+margin-top: 8px;
+}
+
+/* Reaction emoji */
+
+#reaction {
+font-size: 40px;
+margin-top: 15px;
+}
+
+/* Animations */
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+from {
+opacity: 0;
+transform: translateY(15px);
 }
-
-/* Floating hearts */
-.hearts {
-  position: fixed;
-  bottom: -50px;
-  left: 0;
-  width: 100%;
-  pointer-events: none;
-  overflow: hidden;
+to {
+opacity: 1;
+transform: translateY(0);
 }
-
-.heart {
-  position: absolute;
-  font-size: 20px;
-  animation: floatUp 6s linear infinite;
-}
-
-@keyframes floatUp {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-120vh) scale(1.5);
-    opacity: 0;
-  }
-}
-
-.hearts {
-  position: fixed;
-  bottom: -50px;
-  left: 0;
-  width: 100%;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.heart {
-  position: absolute;
-  font-size: 20px;
-  animation: floatUp 6s linear infinite;
-}
-
-@keyframes floatUp {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-120vh) scale(1.5);
-    opacity: 0;
-  }
 }
