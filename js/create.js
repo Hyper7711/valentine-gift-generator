@@ -13,6 +13,11 @@ form.addEventListener("submit", async (e) => {
     .map(msg => msg.trim())
     .filter(msg => msg.length > 0);
 
+  if (messagesArray.length === 0) {
+  alert("Please write at least one love message 💌");
+  return;
+  }
+
   const rawPhotos = document.getElementById("photoUrls")?.value || "";
   const photoUrlsArray = rawPhotos
     .split("\n")
@@ -34,7 +39,49 @@ form.addEventListener("submit", async (e) => {
 
     const link = `${window.location.origin}/gift.html?id=${docRef.id}`;
 
-    alert("Gift link generated 💖\n\n" + link);
+    // Create share popup
+    const shareBox = document.createElement("div");
+
+    shareBox.innerHTML = `
+      <div style="
+        position:fixed;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        background:white;
+        padding:25px;
+        border-radius:12px;
+        box-shadow:0 0 20px rgba(0,0,0,0.2);
+        text-align:center;
+        z-index:9999;
+        max-width:350px;
+      ">
+
+      <h3>Gift Link Generated 💖</h3>
+
+      <input value="${link}" readonly style="width:100%;padding:8px;margin-top:10px;border:1px solid #ccc;border-radius:6px"/>
+
+      <br><br>
+
+      <button id="copyBtn" class="btn">Copy Link</button>
+
+      <a href="https://wa.me/?text=${encodeURIComponent(link)}" target="_blank">
+        <button class="btn" style="margin-left:10px;background:#25D366;">
+          Share WhatsApp
+        </button>
+      </a>
+
+      </div>
+    `;
+
+    document.body.appendChild(shareBox);
+
+    // Copy button logic
+    document.getElementById("copyBtn").onclick = () => {
+      navigator.clipboard.writeText(link);
+      alert("Link copied to clipboard!");
+    };
+
   } catch (error) {
     console.error("Firestore error:", error);
     alert("Error saving gift.");

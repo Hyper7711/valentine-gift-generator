@@ -12,6 +12,7 @@ const errorMsg = document.getElementById("errorMsg");
 const title = document.getElementById("title");
 const animatedText = document.getElementById("animatedText");
 const slideshowContainer = document.getElementById("photoSlideshow");
+const reaction = document.getElementById("reaction");
 
 let giftData = null;
 let currentStep = 0;
@@ -60,12 +61,10 @@ unlockBtn.addEventListener("click", () => {
 
     title.innerText = `For ${giftData.partnerName} 💖`;
 
-    // Start slideshow if exists
     if (giftData.photoUrls && giftData.photoUrls.length > 0) {
       displaySlideshow(giftData.photoUrls);
     }
 
-    // Start message flow
     showNextMessage();
   } else {
     errorMsg.innerText = "Wrong password 😢";
@@ -74,7 +73,6 @@ unlockBtn.addEventListener("click", () => {
 
 // 🖼️ Slideshow
 function displaySlideshow(photoUrls) {
-  if (!slideshowContainer) return;
 
   slideshowContainer.innerHTML = "";
 
@@ -101,6 +99,7 @@ function displaySlideshow(photoUrls) {
 
 // ✨ Multi-step Love Letters
 function showNextMessage() {
+
   if (!giftData.messages || giftData.messages.length === 0) return;
 
   animatedText.innerText = "";
@@ -108,22 +107,27 @@ function showNextMessage() {
   let i = 0;
 
   const interval = setInterval(() => {
+
     animatedText.innerText += text[i];
     i++;
+
     if (i >= text.length) {
       clearInterval(interval);
       showContinueButton();
     }
+
   }, 40);
 }
 
 function showContinueButton() {
+
   const btn = document.createElement("button");
   btn.innerText = "Continue 💖";
   btn.className = "btn";
   btn.style.marginTop = "20px";
 
   btn.onclick = () => {
+
     btn.remove();
     currentStep++;
 
@@ -132,13 +136,15 @@ function showContinueButton() {
     } else {
       showProposalScreen();
     }
+
   };
 
   giftContent.appendChild(btn);
 }
 
-// 💍 Proposal Logic
+// 💍 Proposal Screen
 function showProposalScreen() {
+
   animatedText.innerHTML = "";
 
   const proposal = document.createElement("div");
@@ -157,8 +163,15 @@ function showProposalScreen() {
   const yesBtn = document.getElementById("yesBtn");
   const noBtn = document.getElementById("noBtn");
 
-  // 💖 YES button
+  // 💖 YES CLICK
   yesBtn.onclick = () => {
+
+    confetti({
+      particleCount: 200,
+      spread: 120,
+      origin: { y: 0.6 }
+    });
+
     proposal.innerHTML = `
       <h2>YAYYY!!! 💖🎉</h2>
       <p>You made my heart the happiest!</p>
@@ -166,10 +179,13 @@ function showProposalScreen() {
     `;
 
     document.body.style.background = "#ffe6ea";
+    reaction.innerHTML = "💖💖💖";
   };
 
-  // 😈 NO button (runs away)
+  // 😈 NO BUTTON ESCAPE
   let moveCount = 0;
+
+  const sadEmojis = ["🥺", "💔", "😭", "😿", "😢"];
 
   noBtn.addEventListener("mouseover", () => {
 
@@ -180,6 +196,9 @@ function showProposalScreen() {
 
     noBtn.style.position = "relative";
     noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+    const randomEmoji = sadEmojis[Math.floor(Math.random() * sadEmojis.length)];
+    reaction.innerHTML = randomEmoji;
 
     if (moveCount === 3) {
       alert("Hey! Don't break my heart 🥺");
@@ -192,3 +211,26 @@ function showProposalScreen() {
   });
 
 }
+
+// Floating hearts generator
+const heartsContainer = document.getElementById("hearts");
+
+function createHeart() {
+
+  if (!heartsContainer) return;
+
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+
+  heartsContainer.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 6000);
+}
+
+setInterval(createHeart, 800);

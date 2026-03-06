@@ -5,10 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Your Valentine Gift 💖</title>
   <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* Emoji reactions */
+    #reaction {
+      font-size: 40px;
+      margin-top: 15px;
+      text-align: center;
+    }
+  </style>
+
 </head>
+
 <body>
 
 <div class="gift-container">
+
+  <!-- Password Screen -->
   <div id="passwordScreen">
     <h2>Enter Secret Password 💌</h2>
     <input type="password" id="giftPassword" placeholder="Enter password" />
@@ -16,18 +29,36 @@
     <p id="errorMsg"></p>
   </div>
 
+  <!-- Gift Content -->
   <div id="giftContent" style="display:none;">
+
+    <!-- Title -->
     <h1 id="title"></h1>
 
-    <!-- Slideshow Container -->
+    <!-- Photo Slideshow -->
     <div id="photoSlideshow" class="slideshow"></div>
 
+    <!-- Love Message -->
     <p id="animatedText"></p>
+
+    <!-- Emoji Reaction Area -->
+    <div id="reaction"></div>
+
   </div>
+
 </div>
 
+<!-- Firebase -->
 <script type="module" src="js/firebase.js"></script>
+
+<!-- Gift Logic -->
 <script type="module" src="js/gift.js"></script>
+
+<!-- 🎉 Confetti Library -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<!-- 💖 Floating Hearts Container -->
+<div class="hearts" id="hearts"></div>
 
 </body>
 </html>
