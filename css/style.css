@@ -201,3 +201,27 @@ transform:scale(1);
 opacity:1;
 }
 }
+
+/* Polaroid photo style */
+
+.slideshow {
+position:relative;
+height:260px;
+margin-bottom:20px;
+}
+
+.slideshow img{
+background:white;
+padding:10px;
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
+border-radius:6px;
+transform:rotate(-2deg);
+}
+
+.slideshow img:nth-child(2){
+transform:rotate(2deg);
+}
+
+.slideshow img:nth-child(3){
+transform:rotate(-1deg);
+}
