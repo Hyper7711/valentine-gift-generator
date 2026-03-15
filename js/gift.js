@@ -17,7 +17,6 @@ const reaction = document.getElementById("reaction");
 let giftData = null;
 let currentStep = 0;
 
-// Disable unlock button until data loads
 unlockBtn.disabled = true;
 unlockBtn.innerText = "Loading...";
 
@@ -25,7 +24,7 @@ if (!giftId) {
   alert("Invalid gift link");
 }
 
-// 🔥 Load gift from Firestore
+// Load gift from Firestore
 async function loadGift() {
   try {
     const giftRef = doc(db, "gifts", giftId);
@@ -39,15 +38,16 @@ async function loadGift() {
       alert("Gift not found");
     }
   } catch (err) {
-    console.error("Error loading gift:", err);
+    console.error(err);
     alert("Failed to load gift");
   }
 }
 
 loadGift();
 
-// 🔐 Unlock Logic
+// Unlock Logic
 unlockBtn.addEventListener("click", () => {
+
   if (!giftData) {
     errorMsg.innerText = "Please wait, loading gift...";
     return;
@@ -56,99 +56,125 @@ unlockBtn.addEventListener("click", () => {
   const enteredPassword = document.getElementById("giftPassword").value;
 
   if (enteredPassword === giftData.password) {
+
     passwordScreen.style.display = "none";
     giftContent.style.display = "block";
 
     title.innerText = `For ${giftData.partnerName} 💖`;
 
-    if (giftData.photoUrls && giftData.photoUrls.length > 0) {
+    if (giftData.photoUrls?.length > 0) {
       displaySlideshow(giftData.photoUrls);
     }
 
     showNextMessage();
+
   } else {
     errorMsg.innerText = "Wrong password 😢";
   }
 });
 
-// 🖼️ Slideshow
+
+// Smooth Slideshow
 function displaySlideshow(photoUrls) {
 
   slideshowContainer.innerHTML = "";
 
   photoUrls.forEach((url, index) => {
+
     const img = document.createElement("img");
     img.src = url;
-    img.style.display = index === 0 ? "block" : "none";
-    img.style.width = "100%";
-    img.style.borderRadius = "10px";
+
+    if (index === 0) img.classList.add("active");
+
     slideshowContainer.appendChild(img);
   });
 
   const images = slideshowContainer.querySelectorAll("img");
+
   if (images.length <= 1) return;
 
   let current = 0;
 
   setInterval(() => {
-    images[current].style.display = "none";
+
+    images[current].classList.remove("active");
+
     current = (current + 1) % images.length;
-    images[current].style.display = "block";
-  }, 2500);
+
+    images[current].classList.add("active");
+
+  }, 3000);
 }
 
-// ✨ Multi-step Love Letters
+
+// Typing Animation
 function showNextMessage() {
 
-  if (!giftData.messages || giftData.messages.length === 0) return;
+  if (!giftData.messages?.length) return;
 
-  animatedText.innerText = "";
+  animatedText.innerHTML = `<span id="text"></span><span class="cursor">|</span>`;
+
+  const textContainer = document.getElementById("text");
+
   const text = giftData.messages[currentStep];
+
   let i = 0;
 
   const interval = setInterval(() => {
 
-    animatedText.innerText += text[i];
+    textContainer.innerText += text[i];
+
     i++;
 
     if (i >= text.length) {
+
       clearInterval(interval);
+
       showContinueButton();
     }
 
   }, 40);
 }
 
+
 function showContinueButton() {
 
   const btn = document.createElement("button");
+
   btn.innerText = "Continue 💖";
+
   btn.className = "btn";
+
   btn.style.marginTop = "20px";
 
   btn.onclick = () => {
 
     btn.remove();
+
     currentStep++;
 
     if (currentStep < giftData.messages.length) {
+
       showNextMessage();
+
     } else {
+
       showProposalScreen();
     }
-
   };
 
   giftContent.appendChild(btn);
 }
 
-// 💍 Proposal Screen
+
+// Proposal Screen
 function showProposalScreen() {
 
   animatedText.innerHTML = "";
 
   const proposal = document.createElement("div");
-  proposal.style.marginTop = "30px";
+
+  proposal.classList.add("proposal-card");
 
   proposal.innerHTML = `
     <h2>Will you be my Valentine? 💍</h2>
@@ -163,7 +189,8 @@ function showProposalScreen() {
   const yesBtn = document.getElementById("yesBtn");
   const noBtn = document.getElementById("noBtn");
 
-  // 💖 YES CLICK
+
+  // YES CLICK
   yesBtn.onclick = () => {
 
     confetti({
@@ -172,17 +199,21 @@ function showProposalScreen() {
       origin: { y: 0.6 }
     });
 
+    for (let i = 0; i < 20; i++) {
+      createHeart();
+    }
+
     proposal.innerHTML = `
       <h2>YAYYY!!! 💖🎉</h2>
       <p>You made my heart the happiest!</p>
       <p style="margin-top:10px;">Best day ever 🥰</p>
     `;
 
-    document.body.style.background = "#ffe6ea";
     reaction.innerHTML = "💖💖💖";
   };
 
-  // 😈 NO BUTTON ESCAPE
+
+  // NO BUTTON ESCAPE
   let moveCount = 0;
 
   const sadEmojis = ["🥺", "💔", "😭", "😿", "😢"];
@@ -195,24 +226,22 @@ function showProposalScreen() {
     const y = Math.random() * 200 - 100;
 
     noBtn.style.position = "relative";
+
     noBtn.style.transform = `translate(${x}px, ${y}px)`;
 
     const randomEmoji = sadEmojis[Math.floor(Math.random() * sadEmojis.length)];
+
     reaction.innerHTML = randomEmoji;
 
-    if (moveCount === 3) {
-      alert("Hey! Don't break my heart 🥺");
-    }
+    if (moveCount === 3) alert("Hey! Don't break my heart 🥺");
 
-    if (moveCount === 6) {
-      alert("Come on... click YES 💖");
-    }
-
+    if (moveCount === 6) alert("Come on... click YES 💖");
   });
 
 }
 
-// Floating hearts generator
+
+// Floating hearts
 const heartsContainer = document.getElementById("hearts");
 
 function createHeart() {
@@ -220,17 +249,18 @@ function createHeart() {
   if (!heartsContainer) return;
 
   const heart = document.createElement("div");
+
   heart.className = "heart";
+
   heart.innerHTML = "💖";
 
   heart.style.left = Math.random() * 100 + "vw";
+
   heart.style.animationDuration = (4 + Math.random() * 3) + "s";
 
   heartsContainer.appendChild(heart);
 
-  setTimeout(() => {
-    heart.remove();
-  }, 6000);
+  setTimeout(() => heart.remove(), 6000);
 }
 
 setInterval(createHeart, 800);
