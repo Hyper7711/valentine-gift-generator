@@ -108,32 +108,26 @@ function displaySlideshow(photoUrls) {
 
 
 // Typing Animation
-function showNextMessage() {
+function showNextMessage(){
 
-  if (!giftData.messages?.length) return;
+if(!giftData.messages?.length) return;
 
-  animatedText.innerHTML = `<span id="text"></span><span class="cursor">|</span>`;
+const text = giftData.messages[currentStep];
 
-  const textContainer = document.getElementById("text");
+animatedText.classList.remove("fade-in","fade-out");
+animatedText.innerText = text;
 
-  const text = giftData.messages[currentStep];
+/* fade in */
+setTimeout(()=>{
+animatedText.classList.add("fade-in");
+},50);
 
-  let i = 0;
+/* show continue button after pause */
 
-  const interval = setInterval(() => {
+setTimeout(()=>{
+showContinueButton();
+},2500);
 
-    textContainer.innerText += text[i];
-
-    i++;
-
-    if (i >= text.length) {
-
-      clearInterval(interval);
-
-      showContinueButton();
-    }
-
-  }, 40);
 }
 
 
