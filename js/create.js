@@ -87,3 +87,36 @@ form.addEventListener("submit", async (e) => {
     alert("Error saving gift.");
   }
 });
+
+/* Photo preview */
+
+const photoInput=document.getElementById("photoUrls");
+const preview=document.getElementById("preview");
+
+if(photoInput){
+
+photoInput.addEventListener("input",()=>{
+
+preview.innerHTML="";
+
+const urls=photoInput.value.split("\n");
+
+urls.forEach(url=>{
+
+const clean=url.trim();
+
+if(clean){
+
+const img=document.createElement("img");
+
+img.src=clean;
+
+preview.appendChild(img);
+
+}
+
+});
+
+});
+
+}
