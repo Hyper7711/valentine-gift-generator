@@ -168,75 +168,85 @@ giftContent.appendChild(btn);
 
 
 // Proposal Screen
-function showProposalScreen() {
+function showProposalScreen(){
 
-  animatedText.innerHTML = "";
+animatedText.innerHTML="";
 
-  const proposal = document.createElement("div");
+const proposal=document.createElement("div");
 
-  proposal.classList.add("proposal-card");
+proposal.classList.add("proposal-card");
 
-  proposal.innerHTML = `
-    <h2>Will you be my Valentine? 💍</h2>
-    <div style="margin-top:20px;">
-      <button id="yesBtn" class="btn">YES 💕</button>
-      <button id="noBtn" class="btn" style="margin-left:10px;background:#999;">NO 😢</button>
-    </div>
-  `;
+proposal.innerHTML=`
+<h2 class="proposal-title">Will you be my Valentine? 💍</h2>
 
-  giftContent.appendChild(proposal);
+<div class="proposal-buttons">
 
-  const yesBtn = document.getElementById("yesBtn");
-  const noBtn = document.getElementById("noBtn");
+<button id="yesBtn" class="btn yes-btn">YES 💕</button>
 
+<button id="noBtn" class="btn no-btn">NO 😢</button>
 
-  // YES CLICK
-  yesBtn.onclick = () => {
+</div>
+`;
 
-    confetti({
-      particleCount: 200,
-      spread: 120,
-      origin: { y: 0.6 }
-    });
+giftContent.appendChild(proposal);
 
-    for (let i = 0; i < 20; i++) {
-      createHeart();
-    }
-
-    proposal.innerHTML = `
-      <h2>YAYYY!!! 💖🎉</h2>
-      <p>You made my heart the happiest!</p>
-      <p style="margin-top:10px;">Best day ever 🥰</p>
-    `;
-
-    reaction.innerHTML = "💖💖💖";
-  };
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
 
 
-  // NO BUTTON ESCAPE
-  let moveCount = 0;
+/* YES CLICK */
 
-  const sadEmojis = ["🥺", "💔", "😭", "😿", "😢"];
+yesBtn.onclick=()=>{
 
-  noBtn.addEventListener("mouseover", () => {
+confetti({
+particleCount:200,
+spread:120,
+origin:{y:0.6}
+});
 
-    moveCount++;
+for(let i=0;i<20;i++){
+createHeart();
+}
 
-    const x = Math.random() * 300 - 150;
-    const y = Math.random() * 200 - 100;
+proposal.innerHTML=`
+<h2 class="proposal-title">❤️ She Said YES ❤️</h2>
+<p style="margin-top:10px;font-size:18px;">Love Wins 💖</p>
+`;
 
-    noBtn.style.position = "relative";
+reaction.innerHTML="💖💖💖";
 
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+};
 
-    const randomEmoji = sadEmojis[Math.floor(Math.random() * sadEmojis.length)];
 
-    reaction.innerHTML = randomEmoji;
+/* NO BUTTON ESCAPE */
 
-    if (moveCount === 3) alert("Hey! Don't break my heart 🥺");
+let moveCount=0;
 
-    if (moveCount === 6) alert("Come on... click YES 💖");
-  });
+const sadEmojis=["🥺","💔","😭","😿","😢"];
+
+noBtn.addEventListener("mouseover",()=>{
+
+moveCount++;
+
+const x=Math.random()*300-150;
+const y=Math.random()*200-100;
+
+noBtn.style.position="relative";
+noBtn.style.transform=`translate(${x}px, ${y}px)`;
+
+const randomEmoji=sadEmojis[Math.floor(Math.random()*sadEmojis.length)];
+
+reaction.innerHTML=randomEmoji;
+
+if(moveCount===3){
+alert("Hey! Don't break my heart 🥺");
+}
+
+if(moveCount===6){
+alert("Come on... click YES 💖");
+}
+
+});
 
 }
 
