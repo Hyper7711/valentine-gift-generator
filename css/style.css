@@ -225,3 +225,50 @@ transform:rotate(2deg);
 .slideshow img:nth-child(3){
 transform:rotate(-1deg);
 }
+
+/* Romantic font */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
+
+#title{
+font-family:'Great Vibes', cursive;
+font-size:38px;
+color:#e63946;
+margin-bottom:20px;
+}
+
+/* Cinematic message fade */
+
+#animatedText{
+font-size:20px;
+line-height:1.8;
+opacity:0;
+transition:opacity 1.5s ease;
+min-height:60px;
+}
+
+.fade-in{
+opacity:1;
+}
+
+.fade-out{
+opacity:0;
+}
+
+/* Continue button animation */
+
+.btn{
+background:linear-gradient(45deg,#ff4b6e,#ff758c);
+color:white;
+border:none;
+padding:12px 28px;
+margin-top:20px;
+border-radius:25px;
+cursor:pointer;
+font-size:15px;
+transition:0.3s;
+}
+
+.btn:hover{
+transform:scale(1.08);
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
