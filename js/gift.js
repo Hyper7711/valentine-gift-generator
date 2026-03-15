@@ -110,59 +110,31 @@ function displaySlideshow(photoUrls) {
 // Typing Animation
 function showNextMessage(){
 
-if(!giftData.messages?.length) return;
+if(!giftData.messages || giftData.messages.length === 0) return;
 
 const text = giftData.messages[currentStep];
 
+/* reset animation */
+
 animatedText.classList.remove("fade-in","fade-out");
+
+/* force reflow */
+
+void animatedText.offsetWidth;
+
+/* set text */
+
 animatedText.innerText = text;
 
 /* fade in */
-setTimeout(()=>{
-animatedText.classList.add("fade-in");
-},50);
 
-/* show continue button after pause */
+animatedText.classList.add("fade-in");
+
+/* show continue button after delay */
 
 setTimeout(()=>{
 showContinueButton();
 },2500);
-
-}
-
-
-function showContinueButton(){
-
-const btn=document.createElement("button");
-
-btn.innerText="Continue 💖";
-btn.className="btn";
-
-btn.onclick=()=>{
-
-animatedText.classList.remove("fade-in");
-animatedText.classList.add("fade-out");
-
-setTimeout(()=>{
-
-btn.remove();
-currentStep++;
-
-if(currentStep < giftData.messages.length){
-
-showNextMessage();
-
-}else{
-
-showProposalScreen();
-
-}
-
-},800);
-
-};
-
-giftContent.appendChild(btn);
 
 }
 

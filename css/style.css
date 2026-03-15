@@ -1,22 +1,39 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-  }
+/* Google Fonts */
 
-body {
-min-height: 100vh;
-background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-display: flex;
-justify-content: center;
-align-items: center;
-overflow-x: hidden;
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Poppins",sans-serif;
 }
 
-/* Floating hearts background */
+body{
+min-height:100vh;
+background:linear-gradient(135deg,#ffdde1,#ee9ca7);
+display:flex;
+justify-content:center;
+align-items:center;
+overflow-x:hidden;
+}
 
-/* Magical floating hearts */
+
+/* Floating hearts container */
+
+#hearts{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:0;
+overflow:hidden;
+}
+
+
+/* Floating hearts */
 
 .heart{
 position:absolute;
@@ -49,198 +66,42 @@ opacity:0;
 
 }
 
+
 /* Main container */
 
-.gift-container {
-position: relative;
-z-index: 2;
-width: 90%;
-max-width: 520px;
+.gift-container{
+position:relative;
+z-index:2;
+width:90%;
+max-width:520px;
 }
 
-/* Romantic glass card */
+
+/* Glass card UI */
 
 #passwordScreen,
-#giftContent {
-background: rgba(255,255,255,0.85);
-backdrop-filter: blur(12px);
-border-radius: 18px;
-padding: 35px;
-text-align: center;
-box-shadow: 0 10px 35px rgba(0,0,0,0.15);
-animation: fadeIn 0.8s ease;
-}
-
-/* Title */
-
-#title {
-font-size: 32px;
-color: #e63946;
-margin-bottom: 20px;
-}
-
-/* Message */
-
-#animatedText {
-font-size: 18px;
-line-height: 1.6;
-margin-top: 15px;
-}
-
-/* Slideshow */
-
-.slideshow {
-width: 100%;
-height: 260px;
-overflow: hidden;
-border-radius: 12px;
-margin-bottom: 15px;
-}
-
-.slideshow img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-}
-
-/* Inputs */
-
-input {
-width: 100%;
-padding: 12px;
-margin-top: 10px;
-border-radius: 8px;
-border: 1px solid #ccc;
-}
-
-/* Buttons */
-
-.btn {
-background: linear-gradient(45deg,#ff4b6e,#ff758c);
-color: white;
-border: none;
-padding: 12px 24px;
-margin-top: 15px;
-border-radius: 25px;
-cursor: pointer;
-font-size: 15px;
-transition: 0.25s;
-}
-
-.btn:hover {
-transform: scale(1.05);
-box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-}
-
-/* Error message */
-
-#errorMsg {
-color: #e63946;
-margin-top: 8px;
-}
-
-/* Reaction emoji */
-
-#reaction {
-font-size: 40px;
-margin-top: 15px;
-}
-
-/* Animations */
-
-@keyframes fadeIn {
-from {
-opacity: 0;
-transform: translateY(15px);
-}
-to {
-opacity: 1;
-transform: translateY(0);
-}
-}
-
-/* Slideshow Fade Effect */
-
-.slideshow img {
-position:absolute;
-width:100%;
-height:100%;
-object-fit:cover;
-border-radius:12px;
-opacity:0;
-transition:opacity 1s ease-in-out;
-}
-
-.slideshow img.active {
-opacity:1;
+#giftContent{
+background:rgba(255,255,255,0.85);
+backdrop-filter:blur(12px);
+border-radius:18px;
+padding:35px;
+text-align:center;
+box-shadow:0 10px 35px rgba(0,0,0,0.15);
+animation:fadeIn 0.8s ease;
 }
 
 
-/* Typing Cursor */
-
-.cursor{
-margin-left:4px;
-animation:blink 1s infinite;
-}
-
-@keyframes blink{
-0%,50%,100%{opacity:1}
-25%,75%{opacity:0}
-}
-
-
-/* Proposal Animation */
-
-.proposal-card{
-animation:popIn 0.6s ease;
-}
-
-@keyframes popIn{
-0%{
-transform:scale(0.7);
-opacity:0;
-}
-100%{
-transform:scale(1);
-opacity:1;
-}
-}
-
-/* Polaroid photo style */
-
-.slideshow {
-position:relative;
-height:260px;
-margin-bottom:20px;
-}
-
-.slideshow img{
-background:white;
-padding:10px;
-box-shadow:0 10px 20px rgba(0,0,0,0.2);
-border-radius:6px;
-transform:rotate(-2deg);
-}
-
-.slideshow img:nth-child(2){
-transform:rotate(2deg);
-}
-
-.slideshow img:nth-child(3){
-transform:rotate(-1deg);
-}
-
-/* Romantic font */
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
+/* Romantic title */
 
 #title{
-font-family:'Great Vibes', cursive;
+font-family:'Great Vibes',cursive;
 font-size:38px;
 color:#e63946;
 margin-bottom:20px;
 }
 
-/* Cinematic message fade */
+
+/* Cinematic message */
 
 #animatedText{
 font-size:20px;
@@ -258,7 +119,58 @@ opacity:1;
 opacity:0;
 }
 
-/* Continue button animation */
+
+/* Slideshow */
+
+.slideshow{
+position:relative;
+height:260px;
+margin-bottom:20px;
+}
+
+.slideshow img{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
+
+background:white;
+padding:10px;
+
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
+border-radius:6px;
+
+opacity:0;
+transition:opacity 1s ease-in-out;
+}
+
+.slideshow img.active{
+opacity:1;
+}
+
+/* Polaroid rotation */
+
+.slideshow img:nth-child(2){
+transform:rotate(2deg);
+}
+
+.slideshow img:nth-child(3){
+transform:rotate(-1deg);
+}
+
+
+/* Inputs */
+
+input{
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+
+/* Buttons */
 
 .btn{
 background:linear-gradient(45deg,#ff4b6e,#ff758c);
@@ -277,7 +189,24 @@ transform:scale(1.08);
 box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 
-/* Proposal cinematic card */
+
+/* Error message */
+
+#errorMsg{
+color:#e63946;
+margin-top:8px;
+}
+
+
+/* Reaction emoji */
+
+#reaction{
+font-size:40px;
+margin-top:15px;
+}
+
+
+/* Proposal card */
 
 .proposal-card{
 margin-top:30px;
@@ -300,14 +229,16 @@ opacity:1;
 }
 }
 
+
 /* Proposal title */
 
 .proposal-title{
-font-family:'Great Vibes', cursive;
+font-family:'Great Vibes',cursive;
 font-size:36px;
 color:#e63946;
 margin-bottom:15px;
 }
+
 
 /* Proposal buttons */
 
@@ -317,6 +248,7 @@ display:flex;
 justify-content:center;
 gap:20px;
 }
+
 
 /* YES button glow */
 
@@ -330,8 +262,23 @@ box-shadow:0 0 20px rgba(255,100,120,0.9);
 transform:scale(1.1);
 }
 
+
 /* NO button */
 
 .no-btn{
 background:#999;
+}
+
+
+/* Page animation */
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(15px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
