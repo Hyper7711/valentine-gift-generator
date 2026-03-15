@@ -14,6 +14,8 @@ const animatedText = document.getElementById("animatedText");
 const slideshowContainer = document.getElementById("photoSlideshow");
 const reaction = document.getElementById("reaction");
 
+const heartsContainer = document.getElementById("hearts");
+
 let giftData = null;
 let currentStep = 0;
 
@@ -23,6 +25,7 @@ unlockBtn.innerText = "Loading...";
 if (!giftId) {
   alert("Invalid gift link");
 }
+
 
 // Load gift from Firestore
 async function loadGift() {
@@ -37,6 +40,7 @@ async function loadGift() {
     } else {
       alert("Gift not found");
     }
+
   } catch (err) {
     console.error(err);
     alert("Failed to load gift");
@@ -44,6 +48,7 @@ async function loadGift() {
 }
 
 loadGift();
+
 
 // Unlock Logic
 unlockBtn.addEventListener("click", () => {
@@ -71,10 +76,11 @@ unlockBtn.addEventListener("click", () => {
   } else {
     errorMsg.innerText = "Wrong password 😢";
   }
+
 });
 
 
-// Smooth Slideshow
+// Slideshow
 function displaySlideshow(photoUrls) {
 
   slideshowContainer.innerHTML = "";
@@ -104,157 +110,175 @@ function displaySlideshow(photoUrls) {
     images[current].classList.add("active");
 
   }, 3000);
-}
-
-
-// Typing Animation
-function showNextMessage(){
-
-if(!giftData.messages || giftData.messages.length === 0) return;
-
-const text = giftData.messages[currentStep];
-
-/* reset animation */
-
-animatedText.classList.remove("fade-in","fade-out");
-
-/* force reflow */
-
-void animatedText.offsetWidth;
-
-/* set text */
-
-animatedText.innerText = text;
-
-/* fade in */
-
-animatedText.classList.add("fade-in");
-
-/* show continue button after delay */
-
-setTimeout(()=>{
-showContinueButton();
-},2500);
 
 }
 
 
-// Proposal Screen
+// Message system
+function showNextMessage() {
+
+  if (!giftData.messages || giftData.messages.length === 0) return;
+
+  const text = giftData.messages[currentStep];
+
+  animatedText.classList.remove("fade-in","fade-out");
+
+  animatedText.innerText = text;
+
+  setTimeout(()=>{
+    animatedText.classList.add("fade-in");
+  },50);
+
+  setTimeout(()=>{
+    showContinueButton();
+  },2500);
+
+}
+
+
+// Continue button
+function showContinueButton(){
+
+  const btn = document.createElement("button");
+
+  btn.innerText = "Continue 💖";
+  btn.className = "btn";
+
+  btn.onclick = () => {
+
+    animatedText.classList.remove("fade-in");
+    animatedText.classList.add("fade-out");
+
+    setTimeout(()=>{
+
+      btn.remove();
+
+      currentStep++;
+
+      if (currentStep < giftData.messages.length) {
+
+        showNextMessage();
+
+      } else {
+
+        showProposalScreen();
+
+      }
+
+    },800);
+
+  };
+
+  giftContent.appendChild(btn);
+
+}
+
+
+// Proposal screen
 function showProposalScreen(){
 
-animatedText.innerHTML="";
+  animatedText.innerHTML = "";
 
-const proposal=document.createElement("div");
+  const proposal = document.createElement("div");
 
-proposal.classList.add("proposal-card");
+  proposal.classList.add("proposal-card");
 
-proposal.innerHTML=`
-<h2 class="proposal-title">Will you be my Valentine? 💍</h2>
+  proposal.innerHTML = `
+  <h2 class="proposal-title">Will you be my Valentine? 💍</h2>
 
-<div class="proposal-buttons">
+  <div class="proposal-buttons">
 
-<button id="yesBtn" class="btn yes-btn">YES 💕</button>
+  <button id="yesBtn" class="btn yes-btn">YES 💕</button>
 
-<button id="noBtn" class="btn no-btn">NO 😢</button>
+  <button id="noBtn" class="btn no-btn">NO 😢</button>
 
-</div>
-`;
+  </div>
+  `;
 
-giftContent.appendChild(proposal);
+  giftContent.appendChild(proposal);
 
-const yesBtn=document.getElementById("yesBtn");
-const noBtn=document.getElementById("noBtn");
-
-
-/* YES CLICK */
-
-yesBtn.onclick=()=>{
-
-confetti({
-particleCount:200,
-spread:120,
-origin:{y:0.6}
-});
-
-for(let i=0;i<20;i++){
-createHeart();
-}
-
-proposal.innerHTML=`
-<h2 class="proposal-title">❤️ She Said YES ❤️</h2>
-<p style="margin-top:10px;font-size:18px;">Love Wins 💖</p>
-`;
-
-reaction.innerHTML="💖💖💖";
-
-};
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
 
 
-/* NO BUTTON ESCAPE */
+  // YES
+  yesBtn.onclick = () => {
 
-let moveCount=0;
+    confetti({
+      particleCount:200,
+      spread:120,
+      origin:{y:0.6}
+    });
 
-const sadEmojis=["🥺","💔","😭","😿","😢"];
+    for(let i=0;i<20;i++){
+      createHeart();
+    }
 
-noBtn.addEventListener("mouseover",()=>{
+    proposal.innerHTML = `
+    <h2 class="proposal-title">❤️ She Said YES ❤️</h2>
+    <p style="margin-top:10px;font-size:18px;">Love Wins 💖</p>
+    `;
 
-moveCount++;
+    reaction.innerHTML = "💖💖💖";
 
-const x=Math.random()*300-150;
-const y=Math.random()*200-100;
+  };
 
-noBtn.style.position="relative";
-noBtn.style.transform=`translate(${x}px, ${y}px)`;
 
-const randomEmoji=sadEmojis[Math.floor(Math.random()*sadEmojis.length)];
+  // NO button escape
+  let moveCount = 0;
 
-reaction.innerHTML=randomEmoji;
+  const sadEmojis = ["🥺","💔","😭","😿","😢"];
 
-if(moveCount===3){
-alert("Hey! Don't break my heart 🥺");
-}
+  noBtn.addEventListener("mouseover",()=>{
 
-if(moveCount===6){
-alert("Come on... click YES 💖");
-}
+    moveCount++;
 
-});
+    const x = Math.random()*300-150;
+    const y = Math.random()*200-100;
+
+    noBtn.style.position="relative";
+    noBtn.style.transform=`translate(${x}px, ${y}px)`;
+
+    const randomEmoji = sadEmojis[Math.floor(Math.random()*sadEmojis.length)];
+
+    reaction.innerHTML = randomEmoji;
+
+    if(moveCount===3){
+      alert("Hey! Don't break my heart 🥺");
+    }
+
+    if(moveCount===6){
+      alert("Come on... click YES 💖");
+    }
+
+  });
 
 }
 
 
 // Floating hearts
-const heartsContainer = document.getElementById("hearts");
-
 function createHeart(){
 
-if(!heartsContainer) return;
+  if(!heartsContainer) return;
 
-const heart=document.createElement("div");
+  const heart = document.createElement("div");
 
-heart.className="heart";
+  heart.className="heart";
 
-/* random heart types */
+  const hearts=["💖","💗","💓","💕"];
 
-const hearts=["💖","💗","💓","💕"];
+  heart.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
 
-heart.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
+  heart.style.left = Math.random()*100+"vw";
+  heart.style.animationDuration = (4+Math.random()*4)+"s";
+  heart.style.fontSize = (18+Math.random()*20)+"px";
 
-/* random position */
+  heartsContainer.appendChild(heart);
 
-heart.style.left=Math.random()*100+"vw";
-
-/* random speed */
-
-heart.style.animationDuration=(4+Math.random()*4)+"s";
-
-/* random size */
-
-heart.style.fontSize=(18+Math.random()*20)+"px";
-
-heartsContainer.appendChild(heart);
-
-setTimeout(()=>heart.remove(),8000);
+  setTimeout(()=>heart.remove(),8000);
 
 }
 
+
+// Start heart generator
+setInterval(createHeart,600);
