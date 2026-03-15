@@ -272,3 +272,62 @@ transition:0.3s;
 transform:scale(1.08);
 box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
+
+/* Proposal cinematic card */
+
+.proposal-card{
+margin-top:30px;
+padding:30px;
+border-radius:20px;
+background:linear-gradient(135deg,#fff0f3,#ffe6ea);
+box-shadow:0 15px 40px rgba(0,0,0,0.2);
+text-align:center;
+animation:proposalPop 0.7s ease;
+}
+
+@keyframes proposalPop{
+0%{
+transform:scale(0.7);
+opacity:0;
+}
+100%{
+transform:scale(1);
+opacity:1;
+}
+}
+
+/* Proposal title */
+
+.proposal-title{
+font-family:'Great Vibes', cursive;
+font-size:36px;
+color:#e63946;
+margin-bottom:15px;
+}
+
+/* Proposal buttons */
+
+.proposal-buttons{
+margin-top:20px;
+display:flex;
+justify-content:center;
+gap:20px;
+}
+
+/* YES button glow */
+
+.yes-btn{
+background:linear-gradient(45deg,#ff4b6e,#ff758c);
+box-shadow:0 0 10px rgba(255,100,120,0.6);
+}
+
+.yes-btn:hover{
+box-shadow:0 0 20px rgba(255,100,120,0.9);
+transform:scale(1.1);
+}
+
+/* NO button */
+
+.no-btn{
+background:#999;
+}
