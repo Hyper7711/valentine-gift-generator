@@ -131,33 +131,39 @@ showContinueButton();
 }
 
 
-function showContinueButton() {
+function showContinueButton(){
 
-  const btn = document.createElement("button");
+const btn=document.createElement("button");
 
-  btn.innerText = "Continue 💖";
+btn.innerText="Continue 💖";
+btn.className="btn";
 
-  btn.className = "btn";
+btn.onclick=()=>{
 
-  btn.style.marginTop = "20px";
+animatedText.classList.remove("fade-in");
+animatedText.classList.add("fade-out");
 
-  btn.onclick = () => {
+setTimeout(()=>{
 
-    btn.remove();
+btn.remove();
+currentStep++;
 
-    currentStep++;
+if(currentStep < giftData.messages.length){
 
-    if (currentStep < giftData.messages.length) {
+showNextMessage();
 
-      showNextMessage();
+}else{
 
-    } else {
+showProposalScreen();
 
-      showProposalScreen();
-    }
-  };
+}
 
-  giftContent.appendChild(btn);
+},800);
+
+};
+
+giftContent.appendChild(btn);
+
 }
 
 
