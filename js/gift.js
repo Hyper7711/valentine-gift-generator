@@ -254,24 +254,35 @@ alert("Come on... click YES 💖");
 // Floating hearts
 const heartsContainer = document.getElementById("hearts");
 
-function createHeart() {
+function createHeart(){
 
-  if (!heartsContainer) return;
+if(!heartsContainer) return;
 
-  const heart = document.createElement("div");
+const heart=document.createElement("div");
 
-  heart.className = "heart";
+heart.className="heart";
 
-  heart.innerHTML = "💖";
+/* random heart types */
 
-  heart.style.left = Math.random() * 100 + "vw";
+const hearts=["💖","💗","💓","💕"];
 
-  heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+heart.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
 
-  heartsContainer.appendChild(heart);
+/* random position */
 
-  setTimeout(() => heart.remove(), 6000);
+heart.style.left=Math.random()*100+"vw";
+
+/* random speed */
+
+heart.style.animationDuration=(4+Math.random()*4)+"s";
+
+/* random size */
+
+heart.style.fontSize=(18+Math.random()*20)+"px";
+
+heartsContainer.appendChild(heart);
+
+setTimeout(()=>heart.remove(),8000);
+
 }
-
-setInterval(createHeart, 800);
 
