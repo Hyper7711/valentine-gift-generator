@@ -1,38 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Create Valentine Gift</title>
-  <link rel="stylesheet" href="css/style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Valentine Gift 💖</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+
+.create-wrapper{
+width:90%;
+max-width:520px;
+margin:auto;
+padding:30px;
+background:rgba(255,255,255,0.9);
+border-radius:20px;
+box-shadow:0 15px 40px rgba(0,0,0,0.15);
+animation:fadeIn 0.8s ease;
+}
+
+.create-title{
+font-family:'Great Vibes', cursive;
+font-size:40px;
+text-align:center;
+color:#e63946;
+margin-bottom:10px;
+}
+
+.create-subtitle{
+text-align:center;
+margin-bottom:20px;
+color:#555;
+}
+
+textarea{
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:8px;
+border:1px solid #ccc;
+resize:none;
+}
+
+.photo-preview{
+margin-top:10px;
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+}
+
+.photo-preview img{
+width:80px;
+height:80px;
+object-fit:cover;
+border-radius:8px;
+}
+
+</style>
+
 </head>
+
+
 <body>
 
-<section class="form-container">
-  <h2>Create Your Valentine Gift 💖</h2>
+<div class="create-wrapper">
 
-  <form id="giftForm">
-    <input type="text" id="yourName" placeholder="Your Name" required />
-    <input type="text" id="partnerName" placeholder="Valentine's Name" required />
+<h1 class="create-title">Create a Valentine Gift 💌</h1>
 
-    <textarea id="message" placeholder="Write your love message..." required></textarea>
+<p class="create-subtitle">
+Generate a romantic surprise link for someone special
+</p>
 
-    <!-- ✅ NEW: Photo URLs Field -->
-  <textarea 
-  id="messages" 
-  placeholder="Write love letters (one per line, each line becomes a new step)"
-  required>
-  </textarea>
+<form id="giftForm">
 
-    <input type="password" id="password" placeholder="Set a secret password" required />
+<input type="text" id="yourName" placeholder="Your Name" required>
 
-    <button type="submit" class="btn">Generate Gift Link</button>
-  </form>
-</section>
+<input type="text" id="partnerName" placeholder="Valentine's Name" required>
 
-<!-- IMPORTANT: Firebase first, then create.js -->
+<textarea id="messages" placeholder="Write love messages (one per line)"></textarea>
+
+<textarea id="photoUrls" placeholder="Paste image URLs (one per line, max 6)"></textarea>
+
+<div id="preview" class="photo-preview"></div>
+
+<input type="password" id="password" placeholder="Set a secret password" required>
+
+<button class="btn" type="submit">
+Generate Gift Link 💖
+</button>
+
+</form>
+
+</div>
+
+
 <script type="module" src="js/firebase.js"></script>
 <script type="module" src="js/create.js"></script>
 
 </body>
+
 </html>
