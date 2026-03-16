@@ -120,3 +120,4 @@ preview.appendChild(img);
 });
 
 }
+
