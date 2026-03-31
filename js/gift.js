@@ -282,4 +282,3 @@ function createHeart(){
 
 // Start heart generator
 setInterval(createHeart,600);
-
