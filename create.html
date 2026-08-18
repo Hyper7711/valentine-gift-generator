@@ -82,8 +82,12 @@ Generate a romantic surprise link for someone special
 
 <textarea id="messages" placeholder="Write love messages (one per line)"></textarea>
 
-<textarea id="photoUrls" placeholder="Paste image URLs (one per line, max 6)"></textarea>
-
+<input
+  type="file"
+  id="photoUrls"
+  accept="image/*"
+  multiple
+>
 <div id="preview" class="photo-preview"></div>
 
 <input type="password" id="password" placeholder="Set a secret password" required>

@@ -67,9 +67,9 @@ unlockBtn.addEventListener("click", () => {
 
     title.innerText = `For ${giftData.partnerName} 💖`;
 
-    if (giftData.photoUrls?.length > 0) {
-      displaySlideshow(giftData.photoUrls);
-    }
+if (giftData.photos?.length > 0) {
+  displaySlideshow(giftData.photos);
+}
 
     showNextMessage();
 
@@ -81,16 +81,20 @@ unlockBtn.addEventListener("click", () => {
 
 
 // Slideshow
-function displaySlideshow(photoUrls) {
+function displaySlideshow(photos) {
 
   slideshowContainer.innerHTML = "";
 
-  photoUrls.forEach((url, index) => {
+  photos.forEach((photo, index) => {
 
     const img = document.createElement("img");
-    img.src = url;
 
-    if (index === 0) img.classList.add("active");
+    // Base64 WebP image
+    img.src = photo;
+
+    if (index === 0) {
+      img.classList.add("active");
+    }
 
     slideshowContainer.appendChild(img);
   });
