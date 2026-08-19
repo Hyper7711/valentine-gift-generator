@@ -2,6 +2,41 @@
 import { db } from "./firebase.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
+async function compressImage(file, maxWidth = 1000, quality = 0.7) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      img.src = e.target.result;
+    };
+
+    img.onload = () => {
+      let width = img.width;
+      let height = img.height;
+
+      if (width > maxWidth) {
+        height = Math.round((height * maxWidth) / width);
+        width = maxWidth;
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, width, height);
+
+      const compressed = canvas.toDataURL("image/webp", quality);
+
+      resolve(compressed);
+    };
+
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
 const form = document.getElementById("giftForm");
 
 form.addEventListener("submit", async (e) => {
@@ -19,21 +54,22 @@ form.addEventListener("submit", async (e) => {
   return;
   }
 
-  const rawPhotos = document.getElementById("photoUrls")?.value || "";
-  const photoUrlsArray = rawPhotos
-    .split("\n")
-    .map(url => url.trim())
-    .filter(url => url.length > 0)
-    .slice(0, 6);
+const photoInput = document.getElementById("photoUrls");
+
+const files = Array.from(photoInput.files).slice(0, 6);
+
+const photosArray = await Promise.all(
+  files.map(file => compressImage(file))
+);
 
   const gift = {
-    yourName: document.getElementById("yourName").value,
-    partnerName: document.getElementById("partnerName").value,
-    messages: messagesArray,
-    photoUrls: photoUrlsArray,
-    password: document.getElementById("password").value,
-    createdAt: Date.now()
-  };
+  yourName: document.getElementById("yourName").value,
+  partnerName: document.getElementById("partnerName").value,
+  messages: messagesArray,
+  photos: photosArray,
+  password: document.getElementById("password").value,
+  createdAt: Date.now()
+};
 
   try {
     const docRef = await addDoc(collection(db, "gifts"), gift);
@@ -89,35 +125,38 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
-/* Photo preview */
 
-const photoInput=document.getElementById("photoUrls");
-const preview=document.getElementById("preview");
+const photoInput = document.getElementById("photoUrls");
+const preview = document.getElementById("preview");
 
-if(photoInput){
+if (photoInput && preview) {
 
-photoInput.addEventListener("input",()=>{
+  photoInput.addEventListener("change", () => {
 
-preview.innerHTML="";
+    preview.innerHTML = "";
 
-const urls=photoInput.value.split("\n");
+    const files = Array.from(photoInput.files).slice(0, 6);
 
-urls.forEach(url=>{
+    files.forEach((file) => {
 
-const clean=url.trim();
+      // Make sure it is an image
+      if (!file.type.startsWith("image/")) {
+        return;
+      }
 
-if(clean){
+      const img = document.createElement("img");
 
-const img=document.createElement("img");
+      // Temporary local preview
+      img.src = URL.createObjectURL(file);
 
-img.src=clean;
+      img.onload = () => {
+        URL.revokeObjectURL(img.src);
+      };
 
-preview.appendChild(img);
+      preview.appendChild(img);
 
-}
+    });
 
-});
-
-});
+  });
 
 }
